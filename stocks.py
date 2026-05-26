@@ -1,24 +1,18 @@
 import requests
-from datetime import datetime, timedelta
-
 
 class Stocks:
-    
-    def __init__(self,api):
+    def __init__(self, api, day, month):
         self.api = api
-    
-    def get_stocks(self):
-        URL_STOCKS = "https://finnhub.io/api/v1/stock/candle"
-        start_date = "2023-01-01"
-        end_date = "2024-01-01"
-        from_ts = int(datetime.strptime(start_date, "%Y-%m-%d").timestamp())
-        to_ts = int(datetime.strptime(end_date, "%Y-%m-%d").timestamp())
+        self.day = int(day)
+        self.month = int(month)
+
+    def get_prices(self, ticker="TSLA"):
+        URL = f"https://api.tiingo.com/tiingo/daily/{ticker}/prices"
+        start_date=f"2026-{self.month-1}-{self.day}"
+        end_date=f"2026-{self.month}-{self.day}"
         params = {
-            "symbol": "TSLA",
-            "resolution": "D",
-            "from": from_ts,
-            "to": to_ts,
-            "token": self.api
+            "startDate": start_date,
+            "endDate": end_date,
+            "token": self.api,
         }
-        response_stocks = requests.get(URL_STOCKS,params=params)
-        return response_stocks.json()
+        return requests.get(URL, params=params).json()

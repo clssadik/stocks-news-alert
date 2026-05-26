@@ -3,27 +3,22 @@ from dotenv import load_dotenv
 load_dotenv()
 import requests
 from stocks import Stocks
-from news import News
+from datetime import datetime
 
 STOCKS_API = os.getenv("STOCKS_API")
 NEWS_API = os.getenv("NEWS_API")
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla"
 
-stocks_object = Stocks(STOCKS_API)
-data_stocks = stocks_object.get_stocks()
-print(data_stocks)
-# dates = sorted(data_stocks["Time Series (Daily)"].keys(),reverse=True)
-# yesterday_price = float( data_stocks["Time Series (Daily)"][dates[0]]["4. close"] )
-# before_price = float( data_stocks["Time Series (Daily)"][dates[1]]["4. close"] )
+now = datetime.now()
+date = now.date()
+day = now.date().day
+month = now.date().month
+year = now.date().year
 
-# diff = ((yesterday_price - before_ppip install yfinancerice) / before_price) * 100
-# if abs(diff) >= 5:
-#     print("Get News!")
-
-news_object = News(NEWS_API,COMPANY_NAME)
-data_news = news_object.get_news()
-# print(data_news)
+stocks_object = Stocks(api=STOCKS_API,day=day,month=month)
+data_stocks = stocks_object.get_prices()
+print(data_stocks) 
 
 
 
