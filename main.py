@@ -1,9 +1,9 @@
 import os
 from dotenv import load_dotenv
 load_dotenv()
-import requests
 from stocks import Stocks
 from datetime import datetime
+from news import News
 
 STOCKS_API = os.getenv("STOCKS_API")
 NEWS_API = os.getenv("NEWS_API")
@@ -18,8 +18,14 @@ year = now.date().year
 
 stocks_object = Stocks(api=STOCKS_API,day=day,month=month)
 data_stocks = stocks_object.get_prices()
-print(data_stocks) 
+yesterday_price = data_stocks[20]["close"]
+before_price = data_stocks[19]["close"]
 
+diff = ((yesterday_price - before_price) / before_price) * 100
+if abs(diff) >= 5:
+    print("Get News!")
+
+news_object = Ne
 
 
 
