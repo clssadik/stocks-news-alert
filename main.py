@@ -1,5 +1,29 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+STOCKS_API = os.getenv("STOCKS_API")
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
+
+print(STOCKS_API)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## STEP 1: Use https://www.alphavantage.co
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
