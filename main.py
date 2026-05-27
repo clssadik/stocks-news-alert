@@ -4,11 +4,15 @@ load_dotenv()
 from stocks import Stocks
 from datetime import datetime
 from news import News
+from twilio.rest import Client
 
 STOCKS_API = os.getenv("STOCKS_API")
 NEWS_API = os.getenv("NEWS_API")
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla"
+account_sid = os.getenv("TWILIO_ACCOUNT_SID")
+auth_token = os.getenv("TWILIO_AUTH_TOKEN")
+client = Client(account_sid, auth_token)
 
 now = datetime.now()
 date = now.date()
@@ -21,11 +25,37 @@ data_stocks = stocks_object.get_prices()
 yesterday_price = data_stocks[20]["close"]
 before_price = data_stocks[19]["close"]
 
-diff = ((yesterday_price - before_price) / before_price) * 100
-if abs(diff) >= 5:
-    print("Get News!")
+news_object = News(NEWS_API)
+data_news = news_object.get_news()
 
-news_object = Ne
+diff = ((yesterday_price - before_price) / before_price) * 100
+
+text = ""
+
+def get_text(params):
+    global text
+    text = (
+        f"TSLA: {params}%\n"
+        f"Headline: {data_news['articles'][0]['title']}\n"
+        f"Brief: {data_news['articles'][0]['description']}\n\n"
+        f"Headline: {data_news['articles'][1]['title']}\n"
+        f"Brief: {data_news['articles'][1]['description']}\n\n"
+        f"Headline: {data_news['articles'][2]['title']}\n"
+        f"Brief: {data_news['articles'][2]['description']}"
+    )
+
+if diff <= 0:
+    get_text("🔻")
+else:
+    get_text("🔺")
+
+message = client.messages.create(
+    from_='whatsapp:+14155238886',
+    body= text,
+    to='whatsapp:+905073519085'
+)
+
+print(message.status)
 
 
 
