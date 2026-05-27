@@ -13,6 +13,10 @@ The application retrieves recent TSLA closing prices from Tiingo, calculates
 the percentage change between the latest two closing prices, fetches recent
 Tesla news from NewsAPI, and delivers the final alert through Twilio WhatsApp.
 
+## Visual Overview
+
+![Stocks News Alert workflow](assets/diagrams/stocks-news-workflow.jpg)
+
 ## About
 
 This project focuses on a simple market question: did Tesla stock move, and
@@ -117,6 +121,8 @@ sends it to the configured WhatsApp recipient.
 ```text
 .
 |-- assets/
+|   |-- diagrams/
+|   |   `-- stocks-news-workflow.jpg
 |   `-- previews/
 |       `-- whatsapp-stock-alert.png
 |-- main.py           # Price comparison, message building, and WhatsApp delivery
