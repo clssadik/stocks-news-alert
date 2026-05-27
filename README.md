@@ -49,6 +49,12 @@ change and recent articles into a short message with:
 - WhatsApp delivery through Twilio
 - Environment-based secret management with `python-dotenv`
 
+## Preview
+
+<p align="center">
+  <img src="assets/previews/whatsapp-stock-alert.png" alt="Stock news alert sent through WhatsApp" width="280">
+</p>
+
 ## Getting Started
 
 ### Prerequisites
@@ -110,6 +116,9 @@ sends it to the configured WhatsApp recipient.
 
 ```text
 .
+|-- assets/
+|   `-- previews/
+|       `-- whatsapp-stock-alert.png
 |-- main.py           # Price comparison, message building, and WhatsApp delivery
 |-- stocks.py         # Tiingo stock price API client
 |-- news.py           # NewsAPI article client
