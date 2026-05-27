@@ -11,6 +11,7 @@ class News():
             "q": "Tesla",
             "from": "2026-05-20",
             "to": "2026-05-27",
+            "language": "en",
             "sortBy": "publishedAt",
             "pageSize": 3,
             "apiKey": self.api,

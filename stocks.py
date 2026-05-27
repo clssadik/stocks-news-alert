@@ -1,18 +1,17 @@
 import requests
+from datetime import datetime, timedelta
 
 class Stocks:
-    def __init__(self, api, day, month):
+    def __init__(self, api):
         self.api = api
-        self.day = int(day)
-        self.month = int(month)
 
     def get_prices(self, ticker="TSLA"):
+        end = datetime.now()
+        start = end - timedelta(days=30)
         URL = f"https://api.tiingo.com/tiingo/daily/{ticker}/prices"
-        start_date=f"2026-{self.month-1}-{self.day}"
-        end_date=f"2026-{self.month}-{self.day}"
         params = {
-            "startDate": start_date,
-            "endDate": end_date,
+            "startDate": start.strftime("%Y-%m-%d"),
+            "endDate": end.strftime("%Y-%m-%d"),
             "token": self.api,
         }
         return requests.get(URL, params=params).json()
